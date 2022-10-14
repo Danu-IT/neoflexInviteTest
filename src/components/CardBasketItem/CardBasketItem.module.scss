@@ -1,0 +1,67 @@
+.cardBasketContainer{
+    background-color: white;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+    border-radius: 30px;
+    width: 633px;
+    height: 218px;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    &__left{
+        display: flex;
+        align-items: center;
+    }
+    &__img > img{
+        width: 146px;
+        height: 136px;
+    }
+    &__imgAndCount{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    &__countContainer{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        & > *{
+            margin-right: 25px;
+        }
+    }
+    &__count{
+        background-color: #FFCE7F;
+        border: none;
+        border-radius: 50%;
+        width: 35px;
+        height: 30px;
+        color: white;
+    }
+    &__right{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        &-img{
+            cursor: pointer;
+        }
+    }
+    &__title{
+        margin-bottom: 10px;
+    }
+    &__price{
+        display: flex;
+        align-items: center;
+        font-weight: 600;
+        font-size: 15px;
+        line-height: 18px;
+        color: #AAAAAA;
+    }
+    &__countItem{
+        font-weight: 600;
+        font-size: 15px;
+        line-height: 18px;
+        color: #1C1C27;
+        display: flex;
+        align-items: center;
+    }
+}
