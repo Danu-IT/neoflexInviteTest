@@ -2,18 +2,29 @@ import React, { useEffect, useMemo, useState } from "react";
 import classes from "./CardBasketItem.module.scss";
 import { BiRuble } from "react-icons/bi";
 import deleteIcon from "../../assets/basket/delete.svg";
-import { useDispatch } from "react-redux";
-import { deleteBasket, addFullPrice, removeFullPrice } from "../../features/basket/basketSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { deleteBasket, addFullPrice, removeFullPrice, updateCount} from "../../features/basket/basketSlice";
 
 const CardBasketItem = ({ itemView }) => {
   const dispatch = useDispatch();
+  const basket = useSelector((state) => state.basket.basket);
   const [count, setCount] = useState(1);
   const [itemPrice, setItemPrice] = useState(itemView.price);
 
   useEffect(() => {
     dispatch(addFullPrice(itemView.price));
-    return () => dispatch(removeFullPrice(itemView.price));
+    basket.forEach(el => {
+      if(el.id == itemView.id){
+        setCount(el?.count)
+      }
+    })
+    return () => {
+      dispatch(removeFullPrice(itemView.price));
+    };
   },[])
+  useEffect(() => {
+    dispatch(updateCount({...itemView, count: count}));
+  },[count])
 
   useMemo(() => {
     setItemPrice(count * itemView.price);

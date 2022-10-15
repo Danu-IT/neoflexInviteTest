@@ -4,28 +4,36 @@ import { AiFillStar } from 'react-icons/ai'
 import { BiRuble }  from 'react-icons/bi'
 import { useDispatch } from 'react-redux'
 import { useSelector } from 'react-redux'
-import { addBasket, deleteBasket } from '../../features/basket/basketSlice'
+import { addBasket, deleteBasket, removeFullPrice } from '../../features/basket/basketSlice'
 
 
 const CardItem = ({itemView}) => {
   const [thisItemInCard, setThisItemInCard] = useState(false);
   const basket = useSelector((state) => state.basket.basket);
   const dispatch = useDispatch();
+  let count = 0;
   
   useEffect(() => {
     basket.forEach(el => {
-      if(el.id == itemView.id){
-        setThisItemInCard(true)
+      if(el.id === itemView.id){
+        setThisItemInCard(true);
       }
     })
   },[])
-
   const addAndRemoveItemBasket = () => {
     setThisItemInCard(!thisItemInCard);
     if(thisItemInCard){
+      basket.forEach(el => {
+        if(el.id === itemView.id){
+          dispatch(removeFullPrice(itemView.price * (el.count - 1)));
+        }
+      })
       dispatch(deleteBasket(itemView.id));
     } else{
-      dispatch(addBasket(itemView));
+      dispatch(addBasket({
+        ...itemView,
+        count: 1,
+      }));
     }
   }
   return (
